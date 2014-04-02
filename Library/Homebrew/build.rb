@@ -144,6 +144,7 @@ class Build
         ENV.prepend_path 'ACLOCAL_PATH', "#{opt}/share/aclocal"
         ENV.prepend_path 'CMAKE_PREFIX_PATH', opt
         ENV.prepend 'LDFLAGS', "-L#{opt}/lib" if (opt/:lib).directory?
+        ENV.prepend 'LDFLAGS', "-Wl,-rpath,#{opt}/lib" if OS.linux? and (opt/:lib).directory?
         ENV.prepend 'CPPFLAGS', "-I#{opt}/include" if (opt/:include).directory?
       end
     end
